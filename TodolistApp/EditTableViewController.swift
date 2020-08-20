@@ -16,12 +16,10 @@ class EditTableViewController: UITableViewController {
         super.viewDidLoad()
         //點done收鍵盤
         titleLabel.addTarget(self, action: #selector(closekeyboard), for: .editingDidEndOnExit)
+        //show出選取代辦選項的資料
+        titleLabel.text = list?.title
+        detailLabel.text = list?.detail
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     //點done收鍵盤
     @objc func closekeyboard(){
@@ -33,11 +31,9 @@ class EditTableViewController: UITableViewController {
     
     //傳值回列表頁
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let title = titleLabel.text ?? ""
-        let detail = detailLabel.text ?? ""
-        list = List(title: title, detail: detail)
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+            let title = titleLabel.text ?? ""
+            let detail = detailLabel.text ?? ""
+            list = List(title: title, detail: detail)
     }
     
     /*

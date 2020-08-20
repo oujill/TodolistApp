@@ -72,6 +72,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="titleLabel" destination="0IY-tc-ftw" id="cgl-aV-e1Z"/>
+                                    <segue destination="gTo-gL-1Uk" kind="show" id="0WU-6T-31R"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="todolistcell2" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="todolistcell2" id="xo5-Me-Woy" customClass="TodolistcreateTableViewCell" customModule="TodolistApp" customModuleProvider="target">
@@ -243,6 +244,9 @@
             <point key="canvasLocation" x="582.60869565217399" y="67.633928571428569"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="0WU-6T-31R"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="plus.rectangle.fill" catalog="system" width="128" height="93"/>
         <image name="rectangle" catalog="system" width="128" height="93"/>

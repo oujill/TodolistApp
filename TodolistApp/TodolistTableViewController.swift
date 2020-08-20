@@ -43,7 +43,7 @@ class TodolistTableViewController: UITableViewController {
             if lists.count != 0{
                 cell1.titleLabel.text = lists[indexPath.row].title
             }
-            print(lists.count)
+            //print(lists.count)
             return cell1
         }else{
             let cell2 = tableView.dequeueReusableCell(withIdentifier: "todolistcell2", for: indexPath) as! TodolistcreateTableViewCell
@@ -55,15 +55,17 @@ class TodolistTableViewController: UITableViewController {
     
     @IBAction func unwindToTodolistTableViewController(_ unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? EditTableViewController, let list = sourceViewController.list{
-            lists.insert(list, at: 0)
-            //print(lists[0].title)
-            //新增動畫效果
-            let indexPath = IndexPath(row: 0, section: 0)
-            tableView.insertRows(at: [indexPath], with: .automatic)
-            
+            if let indexPath = tableView.indexPathForSelectedRow, indexPath.section == 0{//修改待辦選項
+                lists[indexPath.row] = list
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }else{//新增待辦選項
+                lists.insert(list, at: 0)
+                //print(lists[0].title)
+                //新增動畫效果
+                let indexPath = IndexPath(row: 0, section: 0)
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            }
         }
-        
-        // Use data from the view controller which initiated the unwind segue
     }
 
     //DELETE
@@ -71,6 +73,16 @@ class TodolistTableViewController: UITableViewController {
         lists.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
         //tableView.reloadData()
+    }
+    
+    //資料傳到細項頁面檢視
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as? EditTableViewController
+        if tableView.indexPathForSelectedRow?.section == 0, let row = tableView.indexPathForSelectedRow?.row{
+            controller?.list = lists[row]
+        }
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
     }
     
     /*
@@ -108,14 +120,6 @@ class TodolistTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
