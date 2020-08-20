@@ -12,12 +12,10 @@ class TodolistTableViewController: UITableViewController {
     var lists = [List]()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //讀取userdefault資料
+        if let lists = List.readFromFile(){
+            self.lists = lists
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -65,6 +63,8 @@ class TodolistTableViewController: UITableViewController {
                 let indexPath = IndexPath(row: 0, section: 0)
                 tableView.insertRows(at: [indexPath], with: .automatic)
             }
+            //寫入userdefault資料
+            List.saveToFile(lists: lists)
         }
     }
 
@@ -72,7 +72,8 @@ class TodolistTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         lists.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
-        //tableView.reloadData()
+        //寫入userdefault資料
+        List.saveToFile(lists: lists)
     }
     
     //資料傳到細項頁面檢視
