@@ -36,6 +36,18 @@ class EditTableViewController: UITableViewController {
             list = List(title: title, detail: detail)
     }
     
+    //防呆設計（檢查至少要有標題欄位）
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if titleLabel.text?.isEmpty == false{//title有東西，回傳true允許跳回去
+            return true
+        }else{//title沒輸入，跳出警告視窗並回傳false不能跳回去
+            let alertcontroller = UIAlertController(title: "error", message: "請輸入標題欄位", preferredStyle: .alert)
+            alertcontroller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alertcontroller, animated: true, completion: nil)
+            return false
+        }
+    }
+    
     /*
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
